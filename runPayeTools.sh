@@ -2,7 +2,7 @@
 
 set -e
 
-RTI_VERSION=${$RTI_VERSION:-19.1.19116.1393}
+RTI_VERSION=${$RTI_VERSION:-22.0.22076.204}
 
 mkdir -p $HOME/HMRC || true
 
@@ -14,7 +14,6 @@ docker run -it --rm \
     -e DISPLAY=$DISPLAY \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     -v $HOME/HMRC:/home/rtiuser/HMRC \
-    -p 127.0.0.1:46729:46729 \
     --user=$(id -u):$(id -g) \
     --network=host \
     payetoolsrti:$RTI_VERSION /opt/HMRC/payetools-rti/rti.linux
