@@ -1,11 +1,10 @@
 #!/bin/bash
 
 set -e
-
-RTI_VERSION=${$RTI_VERSION:-22.0.22076.204}
-
+RTI_VERSION=${1:-latest}
 mkdir -p $HOME/HMRC || true
 
+echo "Running PayeTools RTI Version $RTI_VERSION"
 docker run -it --rm \
     -e QT_X11_NO_MITSHM=1 \
     -e XDG_RUNTIME_DIR=/tmp \
@@ -16,4 +15,4 @@ docker run -it --rm \
     -v $HOME/HMRC:/home/rtiuser/HMRC \
     --user=$(id -u):$(id -g) \
     --network=host \
-    payetoolsrti:$RTI_VERSION /opt/HMRC/payetools-rti/rti.linux
+    "payetoolsrti:$RTI_VERSION" /opt/HMRC/payetools-rti/rti.linux

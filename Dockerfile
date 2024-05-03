@@ -1,6 +1,6 @@
 FROM ubuntu:20.04
 
-ARG rtiversion="22.0.22076.204"
+ARG RTI_VERSION=24.1.24086.542
 
 RUN export DEBIAN_FRONTEND=noninteractive && dpkg --add-architecture i386 && \
     apt-get update \
@@ -19,9 +19,10 @@ RUN export uid=1000 gid=1000 && \
     chmod 0440 /etc/sudoers.d/rtiuser && \
     chown ${uid}:${gid} -R /home/rtiuser
 
-RUN cd /root && wget "https://www.gov.uk/government/uploads/uploaded/hmrc/payetools-rti-$rtiversion-linux.zip" && \
-    unzip "payetools-rti-$rtiversion-linux.zip" && \
-    ./payetools-rti-$rtiversion-linux --userdatamode 1 --createshortcut 0 --installtype typical --mode unattended
+# https://www.gov.uk/government/uploads/uploaded/hmrc/payetools-rti-22.2.22292.290-linux.zip
+RUN cd /root && wget "https://www.gov.uk/government/uploads/uploaded/hmrc/payetools-rti-$RTI_VERSION-linux.zip" && \
+    unzip "payetools-rti-$RTI_VERSION-linux.zip" && \
+    "./payetools-rti-$RTI_VERSION-linux" --userdatamode 1 --createshortcut 0 --installtype typical --mode unattended
 
 USER rtiuser
 
